@@ -2,7 +2,7 @@ from django.template import loader
 from django.shortcuts import render
 from django.http import Http404
 
-from .models import Suggestion
+from .models import Suggestion, Comment
 
 def index(request):
     latest_suggestion_list = Suggestion.objects.order_by('-submit_date')[:5]
@@ -14,4 +14,5 @@ def detail(request, suggestion_id):
         suggestion = Suggestion.objects.get(pk=suggestion_id)
     except Suggestion.DoesNotExist:
         raise Http404("Suggestion does not exist")
-    return render(request, 'suggestions/detail.html', {'suggestion': suggestion})
+    comments = Comment.objects.filter(suggestion = suggestion_id)
+    return render(request, 'suggestions/detail.html', {'suggestion': suggestion, 'comments':comments})

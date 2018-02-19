@@ -1,14 +1,24 @@
 <script>
   document.write('<a class="button-back" href="' + document.referrer + '">Back</a>');
 </script>
-<h1 class="suggestion-title">
-    {{ suggestion.suggestion_title}}
-</h1>
+<div class="suggestion-container">
+    <h1 class="suggestion-title">
+        {{ suggestion.suggestion_title}}
+    </h1>
 
-<p class="suggestion-text">
-    {{ suggestion.suggestion_text}}
-</p>
+    <p class="suggestion-text">
+        {{ suggestion.suggestion_text}}
+    </p>
 
-<div class="metadata">
-    {{ suggestion.submit_date.date}}
-</p>
+    <div class="metadata">
+        {{ suggestion.submit_date.date}}
+    </p>
+</div>
+
+<div class="comments-container">
+    <ul>
+    {% for comment in comments.all %}
+        <li>{{ comment.comment_text }}</li>
+    {% endfor %}
+    </ul>
+</div>
