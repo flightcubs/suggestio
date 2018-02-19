@@ -1,0 +1,9 @@
+{% if latest_suggestion_list %}
+    <ul>
+    {% for suggestion in latest_suggestion_list %}
+        <li><a href="{% url 'suggestions:detail' suggestion.id %}">{{ suggestion.suggestion_title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No suggestions are available.</p>
+{% endif %}
