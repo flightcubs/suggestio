@@ -4,8 +4,7 @@ from django.urls import reverse
 from django.views import generic
 
 from .models import Suggestion, Comment
-
-
+from .forms import SuggestionForm
 
 class IndexView(generic.ListView):
     template_name = 'suggestions/index.html'
@@ -41,3 +40,28 @@ def vote(request, suggestion_id):
     # with POST data. This prevents data from being posted twice if a
     # user hits the Back button.
     return HttpResponseRedirect(reverse('suggestions:detail', args=(suggestion.id,)))
+
+def new_suggestion(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = SuggestionForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            title = form.cleaned_data['title']
+            text = form.cleaned_data['text']
+            new_suggestion = Suggestion(suggestion_title = title, suggestion_text = text)
+            new_suggestion.save()
+
+            return HttpResponseRedirect(reverse('suggestions:index'))
+            #return redirect('suggestions:index')
+            #return HttpResponseRedirect(reverse('suggestions:index', request))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = SuggestionForm()
+
+    return render(request, 'suggestions/new.html', {'form': form})

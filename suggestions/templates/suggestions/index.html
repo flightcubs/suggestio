@@ -3,9 +3,19 @@
 {% block content %}
 
 <div class="index-container">
-    <header class="suggestion-header">
-        Suggestions
-    </header>
+    <div class="index-header">
+        <header class="index-header__title">
+            Suggestions
+        </header>
+
+        <form action="{% url 'suggestions:new' %}" id="newForm">
+            <button class="index-header__button-new" type=submit form="newForm">
+                New suggestion
+            </button>
+        </form>
+
+    </div>
+
     {% if latest_suggestion_list %}
         <ul class="suggestion-list">
         {% for suggestion in latest_suggestion_list %}

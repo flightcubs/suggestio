@@ -194,17 +194,49 @@ html {
      }
  }
 
-.suggestion-header {
-	margin: 2rem 0rem 1.5rem 1rem ;
+.index-header {
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 32px 16px 16px 16px;
+}
+
+.index-header__title {
 	font-size: var(--step-up-3);
 	font-weight: 700;
 }
+
+.index-header__button-new {
+    background: var(--primary);
+    border-radius: 4px;
+    padding: 8px;
+    margin-right: 32px;
+    color: #ffffff;
+    font-size: var(--step-down-2);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    transition: box-shadow 0.05s ease-in-out;
+}
+
+.index-header__button-new:hover {
+    cursor: pointer;
+    background: #118EE6;
+    -webkit-transform: scale(1.02, 1.02);
+    transform: scale(1.02, 1.02);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+
 .suggestion-list {
 	background: #ffffff;
 	padding-top: 16px;
 	padding-bottom: 16px;
 	border-radius: 8px;
-
+	margin-bottom: 40px;
 }
 
 .list-item {
@@ -262,6 +294,8 @@ html {
 	flex: 1;
 	padding-right: 4px;
 }
+
+
 
 /* Page template detail */
 
@@ -381,5 +415,76 @@ html {
 
     text-align: center;
 }
+
+/* New suggestion */
+
+.new-container {
+    font-size: 14px;
+    max-width: 600px;
+    margin: auto;
+}
+
+@media (min-width: 600px) {
+    .new-container {
+        font-size: 16px;
+    }
+ }
+
+ @media (min-width: 1200px) {
+     .new-container {
+         font-size: 18px;
+     }
+ }
+
+.new-title {
+	font-size: var(--step-up-3);
+	margin: 2rem 0 1rem 0;
+	font-weight: 700;
+}
+
+.new-container label {
+	font-weight: 600;
+	display: block;
+	padding: 1rem 0.5rem 1rem 0.5rem;
+}
+
+.new-container input {
+	width: 100%;
+	height: 40px;
+	font-size: var(--step-down-1);
+	padding: 1rem;
+	border: 1px solid #eeeeee;
+	border-radius: 4px;
+}
+
+.new-container textarea {
+	width: 100%;
+	font-size: var(--step-down-1) ;
+	padding: 1rem;
+	border: 1px solid #eeeeee;
+	border-radius: 4px;
+}
+
+.new-button {
+    background: var(--primary);
+    border-radius: 4px;
+	width: 100%;
+	height: 40px;
+    padding: 8px;
+    color: #ffffff;
+	text-align: center;
+    font-size: var(--step-down-2);
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    transition: box-shadow 0.05s ease-in-out;
+	margin-top: 16px;
+}
+
+.new-button:hover {
+    cursor: pointer;
+    background: #118EE6;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
 
 /* Media Queries */
