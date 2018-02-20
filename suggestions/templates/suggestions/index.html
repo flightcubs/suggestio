@@ -1,3 +1,7 @@
+{% extends "suggestions/base.html" %}
+
+{% block content %}
+
 {% if latest_suggestion_list %}
     <ul>
     {% for suggestion in latest_suggestion_list %}
@@ -7,3 +11,5 @@
 {% else %}
     <p>No suggestions are available.</p>
 {% endif %}
+
+{% endblock %}
