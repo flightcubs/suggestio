@@ -20,7 +20,7 @@ class IndexView(generic.ListView):
         return context
 
     def get_queryset(self):
-        return Suggestion.objects.order_by('votes')
+        return Suggestion.objects.order_by('-votes')
 
 class DetailView(generic.DetailView):
     model = Suggestion
