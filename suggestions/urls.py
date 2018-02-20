@@ -5,8 +5,6 @@ from . import views
 app_name = 'suggestions'
 
 urlpatterns = [
-    # ex: /suggestions/
-    path('', views.index, name='index'),
-    # ex: /suggestions/5/
-    path('<int:suggestion_id>/', views.detail, name='detail'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
 ]
