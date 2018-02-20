@@ -17,3 +17,12 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Suggestion
     template_name = 'suggestions/detail.html'
+
+def vote(request, suggestion_id):
+    suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
+    suggestion.votes += 1
+    suggestion.save()
+    # Always return an HttpResponseRedirect after successfully dealing
+    # with POST data. This prevents data from being posted twice if a
+    # user hits the Back button.
+    return HttpResponseRedirect(reverse('suggestions:detail', args=(suggestion.id,)))
