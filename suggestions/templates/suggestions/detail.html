@@ -69,6 +69,15 @@
         {% else %}
             <p class="comments__none">No comments</p>
         {% endif %}
+    </div>
+    <div class="write-comment">
+        <form action="{% url 'suggestions:comment' suggestion.id %}" method="post" id="commentForm">
+            {% csrf_token %}
+            {{ form }}
+            <button class="comment-button" type=submit form="commentForm">
+                Submit comment
+            </button>
+        </form>
 
     </div>
 </div>

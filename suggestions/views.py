@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 
 from .models import Suggestion, Comment
-from .forms import SuggestionForm
+from .forms import SuggestionForm, CommentForm
 
 class IndexView(generic.ListView):
     template_name = 'suggestions/index.html'
@@ -30,6 +30,8 @@ class DetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the comments for the current suggestion
         context['comments'] = Comment.objects.filter(suggestion = self.kwargs['pk'])
+        # Add the comment form
+        context['form'] = CommentForm
         return context
 
 def vote(request, suggestion_id):
@@ -50,18 +52,40 @@ def new_suggestion(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
-            # redirect to a new URL:
+
             title = form.cleaned_data['title']
             text = form.cleaned_data['text']
             new_suggestion = Suggestion(suggestion_title = title, suggestion_text = text)
             new_suggestion.save()
 
+            # redirect to a new URL:
             return HttpResponseRedirect(reverse('suggestions:index'))
-            #return redirect('suggestions:index')
-            #return HttpResponseRedirect(reverse('suggestions:index', request))
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SuggestionForm()
 
     return render(request, 'suggestions/new.html', {'form': form})
+
+
+def comment(request, suggestion_id):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CommentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+
+            text = form.cleaned_data['text']
+            suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
+            new_comment = Comment(suggestion = suggestion, comment_text = text)
+            new_comment.save()
+
+            # redirect back to suggestion:
+            return HttpResponseRedirect(reverse('suggestions:detail', args=(suggestion.id,)))
+
+    # if a GET (or any other method) we'll redirect back to suggestion
+    else:
+        return HttpResponseRedirect(reverse('suggestions:detail', args=(suggestion.id,)))
