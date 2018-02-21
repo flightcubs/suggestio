@@ -53,25 +53,25 @@ table {
 }
 
 
-/* general */
+/* General site structure */
 
-.site {
+.l-site {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.site-header,
-.site-footer {
+.l-site__header,
+.l-site__footer {
   flex: none;
 }
 
-.site-content {
+.l-site__content {
   flex: 1 0 auto;
   padding: var(--space) var(--space) 0;
   width: 100%;
 }
-.site-content::after {
+.l-site__content::after {
   content: '\00a0'; /* &nbsp; */
   display: block;
   margin-top: var(--space);
@@ -79,46 +79,22 @@ table {
   visibility: hidden;
 }
 @media (--break-lg) {
-  .site-content {
+  .l-site__content {
     padding-top: var(--space-lg);
   }
-  .site-content::after {
+  .l-site__content::after {
     margin-top: var(--space-lg);
   }
 }
 
-.site-content--full {
+.l-site__content--full {
   padding: 0;
 }
-.site-content--full::after {
+.l-site__content--full::after {
   content: none;
 }
 
-.site {
-  background: #f5f5f5;
-}
-
-.ic-thumb {
-    width: 16px;
-    margin-right: 8px;
-}
-
-.ic-thumb--white {
-    fill: #ffffff;
-}
-
-.ic-thumb--primary {
-    fill: var(--primary);
-}
-
-/* typography */
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-@import url('https://fonts.googleapis.com/css?family=Pacifico');
-
-html {
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 1rem;
-}
+/* Global variables */
 
 :root {
   --step-up-5: 2em;
@@ -135,22 +111,51 @@ html {
 }
 
 :root {
+	--white: #ffffff;
+	--light: #f5f5f5;
     --primary: #1098F7;
     --primary-dark: #1098F7;
 }
 
-/* grid */
+/* Global styles */
 
-/* header */
+.l-site {
+  background: var(--light);
+}
 
-.header-container {
+.ic-thumb {
+    width: 16px;
+    margin-right: 8px;
+}
+
+.ic-thumb--white {
+    fill: var(--white);
+}
+
+.ic-thumb--primary {
+    fill: var(--primary);
+}
+
+/* Typography */
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+html {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1rem;
+}
+
+/* Header */
+
+.c-header {
     background: var(--primary);
     height: 56px;
     display: flex;
     align-items: center;
 }
 
-.logo {
+.c-header__logo {
     font-family: Pacifico-Regular;
     font-size: 24px;
     color: #FFFFFF;
@@ -162,12 +167,12 @@ html {
 
 /* footer */
 
-.footer-container {
+.c-footer {
     background: #DCE2E6;
     height: 48px;
 }
 
-.footer-text {
+.c-footer__text {
     font-size: 12px;
     color: #999999;
     text-align: center;
@@ -176,20 +181,20 @@ html {
 
 /* Page template index */
 
-.index-container {
+.l-index {
     font-size: 14px;
     max-width: 800px;
     margin: auto;
 }
 
 @media (min-width: 600px) {
-    .index-container {
+    .l-index {
         font-size: 16px;
     }
  }
 
  @media (min-width: 1200px) {
-     .index-container {
+     .l-index {
          font-size: 18px;
      }
  }
@@ -275,7 +280,7 @@ html {
 	font-size: var(--step-down-2);
 	opacity: 0.6;
 	margin-top: 0.4rem;
-	height: 24px;
+	padding-bottom: 0.2rem;
 
 }
 

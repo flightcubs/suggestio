@@ -2,18 +2,18 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'suggestions/style.css' %}" />
 
-<body class="site">
-    <header class="site-header">
-        <div class="header-container">
-            <a class="logo" href="{% url 'suggestions:index' %}">Suggestio</a>
+<body class="l-site">
+    <header class="l-site__header">
+        <div class="c-header">
+            <a class="c-header__logo" href="{% url 'suggestions:index' %}">Suggestio</a>
         </div>
     </header>
-    <main class="site-content">
+    <main class="l-site__content">
         {% block content %}{% endblock %}
     </main>
-    <footer class="site-footer">
-        <div class="footer-container">
-            <p class="footer-text">Made by Filip Hedberg</p>
+    <footer class="l__site-footer">
+        <div class="c-footer">
+            <p class="c-footer__text">Made by Filip Hedberg</p>
         </div>
     </footer>
 </body>

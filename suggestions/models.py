@@ -9,7 +9,6 @@ class Suggestion(models.Model):
     def __str__(self):
         return self.suggestion_title
 
-
 class Comment(models.Model):
     suggestion = models.ForeignKey(Suggestion, on_delete=models.CASCADE)
     comment_text = models.TextField()

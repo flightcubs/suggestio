@@ -36,33 +36,31 @@ class DetailView(generic.DetailView):
         return context
 
 def vote(request, suggestion_id):
+    # Get the suggestion object
     suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
+    # Increment it's vote value and save the object
     suggestion.votes += 1
     suggestion.save()
-    # Always return an HttpResponseRedirect after successfully dealing
-    # with POST data. This prevents data from being posted twice if a
-    # user hits the Back button.
+    # Finally, redirect back to index page
     return HttpResponseRedirect(reverse('suggestions:detail', args=(suggestion.id,)))
 
 def new_suggestion(request):
-    # if this is a POST request we need to process the form data
+    # If this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+        # Create a form instance and populate it with data from the request:
         form = SuggestionForm(request.POST)
-        # check whether it's valid:
+        # Check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-
+            # Get the cleaned form data
             title = form.cleaned_data['title']
             text = form.cleaned_data['text']
+            # Create and save the suggestion
             new_suggestion = Suggestion(suggestion_title = title, suggestion_text = text)
             new_suggestion.save()
-
-            # redirect to a new URL:
+            # Finally, redirect back to index
             return HttpResponseRedirect(reverse('suggestions:index'))
 
-    # if a GET (or any other method) we'll create a blank form
+    # If a GET (or any other method) we'll create a blank form for input
     else:
         form = SuggestionForm()
 
@@ -70,28 +68,27 @@ def new_suggestion(request):
 
 
 def comment(request, suggestion_id):
-    # if this is a POST request we need to process the form data
+    # If this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+        # Create a form instance and populate it with data from the request:
         form = CommentForm(request.POST)
-        # check whether it's valid:
+        # Check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-
+            # Get the submitted comment text and the corresponding suggestion object
             text = form.cleaned_data['text']
             suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
+            # Create and save the comment
             new_comment = Comment(suggestion = suggestion, comment_text = text)
             new_comment.save()
-
-            # redirect back to suggestion:
+            # Finally, redirect back to suggestion:
             return HttpResponseRedirect(reverse('suggestions:detail', args=(suggestion.id,)))
 
-    # if a GET (or any other method) we'll redirect back to suggestion
+    # If for any reason there would be a GET (or any other method) we'll redirect back to suggestion
     else:
         return HttpResponseRedirect(reverse('suggestions:detail', args=(suggestion.id,)))
 
 def resetExample(request):
+    # Delete existing data, and populate with example data.
     Suggestion.objects.all().delete()
     s01 = Suggestion(suggestion_title = "Buy a new coffee brewer to the office", suggestion_text = "Seriously, we need to talk about this. I think we could increase productivity by at least 35 percent by buying a new coffee brewer. In addition, the employees would be happier. Coffee is important, y'all. ", votes = 47, submit_date = date(2017,12,29))
     s02 = Suggestion(suggestion_title = "Have a conference in Italy", suggestion_text = "We should go to Italy and eat pasta. Nothing brings a team together like pasta!", votes = 1, submit_date = date(2018,1,22))
