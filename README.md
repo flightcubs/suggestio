@@ -1,4 +1,5 @@
-![Logo](docs/logo.png)
+<img src="docs/logo.png" width="400">
+
 # suggestio
 
 Meet Suggestio - a simple suggestion board web app.
