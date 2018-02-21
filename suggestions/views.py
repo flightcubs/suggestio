@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from datetime import date
 
 from .models import Suggestion, Comment
 from .forms import SuggestionForm, CommentForm
@@ -89,3 +90,19 @@ def comment(request, suggestion_id):
     # if a GET (or any other method) we'll redirect back to suggestion
     else:
         return HttpResponseRedirect(reverse('suggestions:detail', args=(suggestion.id,)))
+
+def resetExample(request):
+    Suggestion.objects.all().delete()
+    s01 = Suggestion(suggestion_title = "Buy a new coffee brewer to the office", suggestion_text = "Seriously, we need to talk about this. I think we could increase productivity by at least 35 percent by buying a new coffee brewer. In addition, the employees would be happier. Coffee is important, y'all. ", votes = 47, submit_date = date(2017,12,29))
+    s02 = Suggestion(suggestion_title = "Have a conference in Italy", suggestion_text = "We should go to Italy and eat pasta. Nothing brings a team together like pasta!", votes = 1, submit_date = date(2018,1,22))
+    s03 = Suggestion(suggestion_title = "Get standing desks", suggestion_text = "You know what they say, sitting kills. We should get standing desks so we can work standing up. Please vote for #standingdesks2018!", votes = 18, submit_date = date(2018,2,7))
+    s01.save()
+    s02.save()
+    s03.save()
+    c01 = Comment(suggestion_id = s01.id, comment_text = "Yes - I'd love this too!")
+    c02 = Comment(suggestion_id = s01.id, comment_text = "This would be awesome <3")
+    c03 = Comment(suggestion_id = s03.id, comment_text = "I'm not sure about this one...")
+    c01.save()
+    c02.save()
+    c03.save()
+    return HttpResponseRedirect(reverse('suggestions:index'))

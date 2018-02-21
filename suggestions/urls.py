@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:suggestion_id>/vote/', views.vote, name='vote'),
     path('<int:suggestion_id>/comment/', views.comment, name='comment'),
     path('new/', views.new_suggestion, name='new'),
+    path('reset/', views.resetExample, name='reset'),
 ]

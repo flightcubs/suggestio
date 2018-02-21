@@ -295,7 +295,19 @@ html {
 	padding-right: 4px;
 }
 
+.reset-example {
+	margin: auto;
+	width: 100%;
+	display: flex;
+}
 
+.reset-example__button-reset {
+	font-size: var(--step-down-1);
+	text-decoration: none;
+	color: #999999;
+	text-align: center;
+	margin: auto;
+}
 
 /* Page template detail */
 
